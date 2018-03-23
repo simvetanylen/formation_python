@@ -36,10 +36,11 @@ class Database:
     @classmethod
     def __get_connection(cls):
         connection = sqlite3.connect(Database.__db_file)
-        connection.row_factory = cls.__dict_factory
+        connection.row_factory = cls.dict_factory
         return connection
 
-    def __dict_factory(cursor, row):
+    @staticmethod
+    def dict_factory(cursor, row):
         d = {}
         for idx, col in enumerate(cursor.description):
             d[col[0]] = row[idx]

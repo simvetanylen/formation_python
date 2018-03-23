@@ -10,4 +10,3 @@ class TestExample(unittest.TestCase):
         response = test_app.get("/example")
 
         assert response.status_code == 200
-

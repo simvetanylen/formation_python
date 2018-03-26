@@ -6,6 +6,7 @@ from app.services.message_service import MessageService
 
 bp = Blueprint(__name__, __name__)
 
+
 class InboxController:
 
     @staticmethod

@@ -4,7 +4,7 @@ from app.dao.notification_dao import NotificationDao
 
 
 class NotificationService:
-    
+
     @staticmethod
     def create(user_id, model):
         now = datetime.now()

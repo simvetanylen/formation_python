@@ -21,6 +21,7 @@ class MessageService:
 
         for message in messages:
             model_list.append({
+                'id': message['id'],
                 'text': message['text'],
                 'time': message['time'],
                 'from': UserDao.get(message['from_user']),
@@ -31,10 +32,13 @@ class MessageService:
 
         for notification in notifications:
             model_list.append({
+                'id': notification['id'],
                 'text': notification['text'],
                 'time': notification['time'],
                 'type': message_types.NOTIFICATION
             })
+
+        model_list.sort(key=lambda m: m['time'])
 
         return model_list
 
@@ -45,6 +49,7 @@ class MessageService:
 
         for message in messages:
             model_list.append({
+                'id': message['id'],
                 'text': message['text'],
                 'time': message['time'],
                 'to': UserDao.get(message['to_user'])

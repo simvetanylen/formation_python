@@ -28,7 +28,7 @@ class TestNotificationController(unittest.TestCase):
         user1_id = response.data.decode("utf-8")
 
         response = test_app.post('/users/' + user1_id + '/notifications', data=json.dumps({
-            "text" : "hello"
+            "text": "hello"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
 

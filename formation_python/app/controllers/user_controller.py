@@ -2,6 +2,7 @@ import json
 
 from flask import Response, Blueprint, request
 
+from app.exceptions.invalid_model_exception import InvalidModelException
 from app.services.user_service import UserService
 
 bp = Blueprint(__name__, __name__)
@@ -22,7 +23,10 @@ class UserController:
     @staticmethod
     @bp.route('/users', methods=['POST'])
     def create():
-        return Response(str(UserService.create(request.get_json())))
+        try:
+            return Response(str(UserService.create(request.get_json())))
+        except InvalidModelException as ime:
+            return Response("", status=400)
 
     @staticmethod
     @bp.route('/users/<user_id>', methods=['PUT'])

@@ -1,4 +1,7 @@
+import re
+
 from app.dao.user_dao import UserDao
+from app.exceptions.invalid_model_exception import InvalidModelException
 
 
 class UserService:
@@ -13,7 +16,10 @@ class UserService:
 
     @staticmethod
     def create(model):
-        return UserDao.create(model)
+        if re.match(r'^[A-Za-z ]+$', model['firstname']):
+            return UserDao.create(model)
+        else:
+            raise InvalidModelException()
 
     @staticmethod
     def update(user_id, model):

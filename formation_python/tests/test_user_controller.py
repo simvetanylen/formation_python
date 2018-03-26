@@ -27,6 +27,26 @@ class TestUserController(unittest.TestCase):
         assert user['firstname'] == 'test'
 
     @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
+    def test_name_validation_underscore(self):
+        Database.execute_schema()
+        test_app = app.test_client()
+
+        response = test_app.post('/users', data=json.dumps({
+            "firstname": "test_"
+        }), content_type=content_type.JSON)
+        assert response.status_code >= 400
+
+    @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
+    def test_name_validation_number(self):
+        Database.execute_schema()
+        test_app = app.test_client()
+
+        response = test_app.post('/users', data=json.dumps({
+            "firstname": "test1"
+        }), content_type=content_type.JSON)
+        assert response.status_code >= 400
+
+    @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
     def test_delete(self):
         Database.execute_schema()
         test_app = app.test_client()

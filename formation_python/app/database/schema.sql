@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS message;
@@ -39,7 +40,9 @@ CREATE TABLE article(
 CREATE TABLE comment(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     writer INTEGER NOT NULL,
+    article_id INTEGER NOT NULL,
     text VARCHAR(500) NOT NULL,
     time TIMESTAMP NOT NULL,
-    FOREIGN KEY(writer) REFERENCES user(id)
+    FOREIGN KEY(writer) REFERENCES user(id),
+    FOREIGN KEY(article_id) REFERENCES article(id)
 );

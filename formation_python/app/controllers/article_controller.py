@@ -16,4 +16,4 @@ class ArticleController:
     @staticmethod
     @bp.route('/articles/<article_id>/comments', methods=['POST'])
     def comment(article_id):
-        return Response(str(CommentService.create(request.get_json())))
+        return Response(str(CommentService.create(article_id, request.get_json())))

@@ -20,13 +20,13 @@ class TestMessageController(unittest.TestCase):
         test_app = app.test_client()
 
         response = test_app.post('/users', data=json.dumps({
-            "firstname": "user1"
+            "firstname": "john"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
         user1_id = response.data.decode("utf-8")
 
         response = test_app.post('/users', data=json.dumps({
-            "firstname": "user2"
+            "firstname": "jane"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
         user2_id = response.data.decode("utf-8")
@@ -43,7 +43,7 @@ class TestMessageController(unittest.TestCase):
         messages = json.loads(response.data)
         assert len(messages) == 1
         assert messages[0]['text'] == 'Hello !'
-        assert messages[0]['to']['firstname'] == 'user2'
+        assert messages[0]['to']['firstname'] == 'jane'
         time = datetime.strptime(messages[0]['time'], date_format.CLASSIC)
         assert time > time_before
         assert time < datetime.now()
@@ -53,5 +53,5 @@ class TestMessageController(unittest.TestCase):
         messages = json.loads(response.data)
         assert len(messages) == 1
         assert messages[0]['text'] == 'Hello !'
-        assert messages[0]['from']['firstname'] == 'user1'
+        assert messages[0]['from']['firstname'] == 'john'
         assert messages[0]['type'] == 'USER'

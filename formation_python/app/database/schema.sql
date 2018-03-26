@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS article_reverse_index;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS notification;
@@ -44,4 +45,10 @@ CREATE TABLE comment(
     time TIMESTAMP NOT NULL,
     FOREIGN KEY(writer) REFERENCES user(id),
     FOREIGN KEY(article_id) REFERENCES article(id)
+);
+
+CREATE TABLE article_reverse_index(
+    article_id INTEGER NOT NULL,
+    word VARCHAR(255) NOT NULL,
+    PRIMARY KEY (article_id, word)
 );

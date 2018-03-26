@@ -5,20 +5,13 @@ from unittest.mock import patch
 
 from app import app
 from app.database.database import Database
+from tests.utils.mock_connection_factory import MockConnectionFactory
 
 
 class TestUserController(unittest.TestCase):
 
-    @staticmethod
-    def fake_connect():
-        connection = sqlite3.connect(":memory:")
-        connection.row_factory = Database.dict_factory
-        return connection
-
+    @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
     def test(self):
-        db_connection_patcher = patch('app.database.database.Database.get_connection', self.fake_connect)
-        db_connection_patcher.start()
-
         Database.execute_schema()
 
         test_app = app.test_client()
@@ -28,5 +21,3 @@ class TestUserController(unittest.TestCase):
         users = json.loads(response.data)
 
         assert len(users) == 0
-
-        db_connection_patcher.stop()

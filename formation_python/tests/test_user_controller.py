@@ -1,4 +1,3 @@
-import sqlite3
 import unittest
 import json
 from unittest.mock import patch

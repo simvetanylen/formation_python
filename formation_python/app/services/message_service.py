@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app.dao.message_dao import MessageDao
 from app.dao.user_dao import UserDao
 
@@ -6,6 +8,8 @@ class MessageService:
 
     @staticmethod
     def create(model):
+        now = datetime.now()
+        model['time'] = now
         return MessageDao.create(model)
 
     @staticmethod
@@ -16,6 +20,7 @@ class MessageService:
         for message in messages:
             model_list.append({
                 'text': message['text'],
+                'time': message['time'],
                 'from': UserDao.get(message['from_user'])
             })
         return model_list
@@ -28,6 +33,7 @@ class MessageService:
         for message in messages:
             model_list.append({
                 'text': message['text'],
+                'time': message['time'],
                 'to': UserDao.get(message['to_user'])
             })
         return model_list

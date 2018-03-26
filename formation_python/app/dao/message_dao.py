@@ -6,9 +6,9 @@ class MessageDao:
     @staticmethod
     def create(model):
         return Database.create("""
-        INSERT INTO message(from_user, to_user, text)
-        VALUES (?, ?, ?);
-        """, [model['from_user'], model['to_user'], model['text']])
+        INSERT INTO message(from_user, to_user, text, time)
+        VALUES (?, ?, ?, ?);
+        """, [model['from_user'], model['to_user'], model['text'], model['time']])
 
     @staticmethod
     def get_inbox(user_id):

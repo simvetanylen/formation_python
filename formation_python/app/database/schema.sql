@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS user;
 
@@ -12,6 +13,15 @@ CREATE TABLE message(
     from_user INTEGER NOT NULL,
     to_user INTEGER NOT NULL,
     text VARCHAR(2000) NOT NULL,
+    time TIMESTAMP NOT NULL,
     FOREIGN KEY(from_user) REFERENCES user(id),
+    FOREIGN KEY (to_user) REFERENCES user(id)
+);
+
+CREATE TABLE notification(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    to_user INTEGER NOT NULL,
+    text VARCHAR(2000) NOT NULL,
+    time TIMESTAMP NOT NULL,
     FOREIGN KEY (to_user) REFERENCES user(id)
 );

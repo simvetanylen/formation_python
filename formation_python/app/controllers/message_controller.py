@@ -1,5 +1,3 @@
-import json
-
 from flask import Blueprint, Response, request
 
 from app.services.message_service import MessageService

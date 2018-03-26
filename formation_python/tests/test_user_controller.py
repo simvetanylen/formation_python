@@ -12,12 +12,14 @@ class TestUserController(unittest.TestCase):
     @staticmethod
     def fake_connect():
         connection = sqlite3.connect(":memory:")
-        connection.row_factory = Database.dict_factory()
+        connection.row_factory = Database.dict_factory
         return connection
 
     def test(self):
-        db_connection_patcher = patch('app.database.database.Database.__get_connection', self.fake_connect)
+        db_connection_patcher = patch('app.database.database.Database.get_connection', self.fake_connect)
         db_connection_patcher.start()
+
+        Database.execute_schema()
 
         test_app = app.test_client()
 

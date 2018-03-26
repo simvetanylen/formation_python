@@ -56,3 +56,4 @@ class TestMessageController(unittest.TestCase):
         assert len(messages) == 1
         assert messages[0]['text'] == 'Hello !'
         assert messages[0]['from']['firstname'] == 'user1'
+        assert messages[0]['type'] == 'USER'

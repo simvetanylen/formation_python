@@ -20,15 +20,13 @@ class TestMessageController(unittest.TestCase):
         test_app = app.test_client()
 
         response = test_app.post('/users', data=json.dumps({
-            "firstname": "user1",
-            "lastname": "user1"
+            "firstname": "user1"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
         user1_id = response.data.decode("utf-8")
 
         response = test_app.post('/users', data=json.dumps({
-            "firstname": "user2",
-            "lastname": "user2"
+            "firstname": "user2"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
         user2_id = response.data.decode("utf-8")

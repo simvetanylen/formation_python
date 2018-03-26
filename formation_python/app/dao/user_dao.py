@@ -14,9 +14,9 @@ class UserDao:
     @staticmethod
     def create(model):
         return Database.create("""
-        INSERT INTO user(firstname, lastname)
-        VALUES (?, ?);
-        """, [model['firstname'], model['lastname']])
+        INSERT INTO user(firstname)
+        VALUES (?);
+        """, [model['firstname']])
 
     @staticmethod
     def update(user_id, model):

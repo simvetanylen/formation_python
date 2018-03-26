@@ -16,8 +16,7 @@ class TestUserController(unittest.TestCase):
         test_app = app.test_client()
 
         response = test_app.post('/users', data=json.dumps({
-            "firstname": "test",
-            "lastname": "test"
+            "firstname": "test"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
         user_id = response.data.decode('utf-8')
@@ -33,8 +32,7 @@ class TestUserController(unittest.TestCase):
         test_app = app.test_client()
 
         response = test_app.post('/users', data=json.dumps({
-            "firstname": "test",
-            "lastname": "test"
+            "firstname": "test"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
         user_id = response.data.decode("utf-8")

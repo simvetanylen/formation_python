@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS user;
@@ -24,4 +25,21 @@ CREATE TABLE notification(
     text VARCHAR(2000) NOT NULL,
     time TIMESTAMP NOT NULL,
     FOREIGN KEY (to_user) REFERENCES user(id)
+);
+
+CREATE TABLE article(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    writer INTEGER NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    text VARCHAR(2000) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY(writer) REFERENCES user(id)
+);
+
+CREATE TABLE comment(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    writer INTEGER NOT NULL,
+    text VARCHAR(500) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY(writer) REFERENCES user(id)
 );

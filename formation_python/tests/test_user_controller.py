@@ -11,16 +11,6 @@ from tests.utils.mock_connection_factory import MockConnectionFactory
 class TestUserController(unittest.TestCase):
 
     @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
-    def test(self):
-        Database.execute_schema()
-        test_app = app.test_client()
-
-        response = test_app.get('/users')
-        assert response.status_code == 200
-        users = json.loads(response.data)
-        assert len(users) == 0
-
-    @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
     def test_create(self):
         Database.execute_schema()
         test_app = app.test_client()
@@ -30,11 +20,12 @@ class TestUserController(unittest.TestCase):
             "lastname": "test"
         }), content_type=content_type.JSON)
         assert response.status_code == 200
+        user_id = response.data.decode('utf-8')
 
-        response = test_app.get('/users')
+        response = test_app.get('/users/' + user_id)
         assert response.status_code == 200
-        users = json.loads(response.data)
-        assert len(users) == 1
+        user = json.loads(response.data)
+        assert user['firstname'] == 'test'
 
     @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
     def test_delete(self):

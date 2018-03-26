@@ -9,7 +9,7 @@ class UserDao:
 
     @staticmethod
     def get(user_id):
-        return Database.read("SELECT * FROM user WHERE id = ?", user_id)
+        return Database.read("SELECT * FROM user WHERE id = ?", [user_id])[0]
 
     @staticmethod
     def create(model):

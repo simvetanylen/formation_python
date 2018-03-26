@@ -4,34 +4,34 @@ from flask import Response, Blueprint, request
 
 from app.services.user_service import UserService
 
-blueprint = Blueprint(__name__, __name__)
+bp = Blueprint(__name__, __name__)
 
 
 class UserController:
 
     @staticmethod
-    @blueprint.route('/users', methods=['GET'])
+    @bp.route('/users', methods=['GET'])
     def get_all():
         return Response(json.dumps(UserService.get_all()))
 
     @staticmethod
-    @blueprint.route('/users/<user_id>', methods=['GET'])
+    @bp.route('/users/<user_id>', methods=['GET'])
     def get(user_id):
         return Response(json.dumps(UserService.get(user_id)))
 
     @staticmethod
-    @blueprint.route('/users', methods=['POST'])
+    @bp.route('/users', methods=['POST'])
     def create():
         return Response(str(UserService.create(request.get_json())))
 
     @staticmethod
-    @blueprint.route('/users/<user_id>', methods=['PUT'])
+    @bp.route('/users/<user_id>', methods=['PUT'])
     def update(user_id):
         UserService.update(user_id, request.get_json())
         return Response()
 
     @staticmethod
-    @blueprint.route('/users/<user_id>', methods=['DELETE'])
+    @bp.route('/users/<user_id>', methods=['DELETE'])
     def delete(user_id):
         UserService.delete(user_id)
         return Response()

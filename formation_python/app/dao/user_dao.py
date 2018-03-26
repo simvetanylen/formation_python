@@ -24,3 +24,9 @@ class UserDao:
         UPDATE user SET firstname = ?, lastname = ?
         WHERE id = ?
         """, [model['firstname'], model['lastname'], user_id])
+
+    @staticmethod
+    def delete(user_id):
+        Database.delete("""
+        DELETE FROM user WHERE id = ?
+        """, [user_id])

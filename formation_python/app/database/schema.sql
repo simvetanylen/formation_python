@@ -1,6 +1,17 @@
+DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS user;
+
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     firstname VARCHAR(255),
     lastname VARCHAR(255)
+);
+
+CREATE TABLE message(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    from_user INTEGER NOT NULL,
+    to_user INTEGER NOT NULL,
+    text VARCHAR(2000) NOT NULL,
+    FOREIGN KEY(from_user) REFERENCES user(id),
+    FOREIGN KEY (to_user) REFERENCES user(id)
 );

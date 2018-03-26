@@ -29,3 +29,9 @@ class UserController:
     def update(user_id):
         UserService.update(user_id, request.get_json())
         return Response()
+
+    @staticmethod
+    @blueprint.route('/users/<user_id>', methods=['DELETE'])
+    def delete(user_id):
+        UserService.delete(user_id)
+        return Response()

@@ -29,6 +29,12 @@ class Database:
         connection.commit()
 
     @classmethod
+    def delete(cls, request, params):
+        connection = cls.get_connection()
+        connection.execute(request, params)
+        connection.commit()
+
+    @classmethod
     def get_connection(cls):
         return ConnectionFactory.get()
 

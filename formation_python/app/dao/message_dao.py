@@ -17,7 +17,7 @@ class MessageDao:
         """, [user_id])
 
     @staticmethod
-    def get_sendbox(user_id):
+    def get_outbox(user_id):
         return Database.read("""
         SELECT * FROM message WHERE from_user = ?
         """, [user_id])

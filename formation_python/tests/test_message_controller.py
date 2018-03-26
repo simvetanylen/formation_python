@@ -37,14 +37,14 @@ class TestMessageController(unittest.TestCase):
         }), content_type=content_type.JSON)
         assert response.status_code == 200
 
-        response = test_app.get('/users/' + user1_id + '/messages/sendbox')
+        response = test_app.get('/users/' + user1_id + '/outbox')
         assert response.status_code == 200
         messages = json.loads(response.data)
         assert len(messages) == 1
         assert messages[0]['text'] == 'Hello !'
         assert messages[0]['to']['firstname'] == 'user2'
 
-        response = test_app.get('/users/' + user2_id + '/messages/inbox')
+        response = test_app.get('/users/' + user2_id + '/inbox')
         assert response.status_code == 200
         messages = json.loads(response.data)
         assert len(messages) == 1

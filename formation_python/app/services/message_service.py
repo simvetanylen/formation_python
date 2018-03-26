@@ -21,8 +21,8 @@ class MessageService:
         return model_list
 
     @staticmethod
-    def get_sendbox(user_id):
-        messages = MessageDao.get_sendbox(user_id)
+    def get_outbox(user_id):
+        messages = MessageDao.get_outbox(user_id)
         model_list = []
 
         for message in messages:

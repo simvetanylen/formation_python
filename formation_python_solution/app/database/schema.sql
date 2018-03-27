@@ -1,0 +1,54 @@
+DROP TABLE IF EXISTS article_reverse_index;
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS article;
+DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    firstname VARCHAR(255)
+);
+
+CREATE TABLE message(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    from_user INTEGER NOT NULL,
+    to_user INTEGER NOT NULL,
+    text VARCHAR(2000) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY(from_user) REFERENCES user(id),
+    FOREIGN KEY (to_user) REFERENCES user(id)
+);
+
+CREATE TABLE notification(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    to_user INTEGER NOT NULL,
+    text VARCHAR(2000) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY (to_user) REFERENCES user(id)
+);
+
+CREATE TABLE article(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    writer INTEGER NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    text VARCHAR(2000) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY(writer) REFERENCES user(id)
+);
+
+CREATE TABLE comment(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    writer INTEGER NOT NULL,
+    article_id INTEGER NOT NULL,
+    text VARCHAR(500) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY(writer) REFERENCES user(id),
+    FOREIGN KEY(article_id) REFERENCES article(id)
+);
+
+CREATE TABLE article_reverse_index(
+    article_id INTEGER NOT NULL,
+    word VARCHAR(255) NOT NULL,
+    PRIMARY KEY (article_id, word)
+);

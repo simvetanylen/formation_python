@@ -1,4 +1,5 @@
 from app.database.database import Database
+from app.exceptions.item_not_found_exception import ItemNotFoundException
 
 
 class UserDao:
@@ -9,7 +10,11 @@ class UserDao:
 
     @staticmethod
     def get(user_id):
-        return Database.read("SELECT * FROM user WHERE id = ?", [user_id])[0]
+        results = Database.read("SELECT * FROM user WHERE id = ?", [user_id])
+        if len(results) > 0:
+            return results[0]
+        else:
+            raise ItemNotFoundException()
 
     @staticmethod
     def create(model):

@@ -23,10 +23,7 @@ class UserController:
     @staticmethod
     @bp.route('/users', methods=['POST'])
     def create():
-        try:
-            return Response(str(UserService.create(request.get_json())))
-        except InvalidModelException as ime:
-            return Response("", status=400)
+        return Response(str(UserService.create(request.get_json())))
 
     @staticmethod
     @bp.route('/users/<user_id>', methods=['PUT'])

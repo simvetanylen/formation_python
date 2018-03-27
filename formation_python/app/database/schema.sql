@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS user;
 
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    firstname VARCHAR(255)
+    firstname VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE message(

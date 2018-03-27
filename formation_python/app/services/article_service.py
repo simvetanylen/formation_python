@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import re
+
 from app.dao.article_dao import ArticleDao
 from app.dao.article_reverse_index_dao import ArticleReverseIndexDao
 
@@ -12,7 +14,7 @@ class ArticleService:
         model['time'] = now
         article_id = ArticleDao.create(model)
 
-        words = model['text'].split(' ')
+        words = re.findall(r"[\w']+", model['text'])
 
         for word in words:
             ari_model = {
@@ -24,3 +26,14 @@ class ArticleService:
                 ArticleReverseIndexDao.create(ari_model)
 
         return article_id
+
+    @staticmethod
+    def search(word):
+        search_results = ArticleReverseIndexDao.search(word)
+
+        articles = []
+        for article_id in [search_result['article_id'] for search_result in search_results]:
+            articles.append(ArticleDao.get(article_id))
+
+        return articles
+

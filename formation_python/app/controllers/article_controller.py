@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, Response, request
 
 from app.services.article_service import ArticleService
@@ -17,3 +19,8 @@ class ArticleController:
     @bp.route('/articles/<article_id>/comments', methods=['POST'])
     def comment(article_id):
         return Response(str(CommentService.create(article_id, request.get_json())))
+
+    @staticmethod
+    @bp.route('/articles/search/<word>', methods=['GET'])
+    def search(word):
+        return Response(json.dumps(ArticleService.search(word)))

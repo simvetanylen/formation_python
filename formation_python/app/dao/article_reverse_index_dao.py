@@ -17,3 +17,10 @@ class ArticleReverseIndexDao:
         INSERT INTO article_reverse_index(article_id, word)
         VALUES (?, ?)
         """, [model['article_id'], model['word']])
+
+    @staticmethod
+    def search(word):
+        return Database.read("""
+        SELECT * FROM article_reverse_index
+        WHERE word = ?
+        """, [word])

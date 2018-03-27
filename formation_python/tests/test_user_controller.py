@@ -33,4 +33,3 @@ class TestUserController(unittest.TestCase):
 
         response = test_app.get('/users/1')
         assert response.status_code == 404
-

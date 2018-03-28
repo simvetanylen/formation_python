@@ -23,3 +23,9 @@ class UserController:
     @bp.route('/users', methods=['POST'])
     def create():
         return Response(str(UserService.create(request.get_json())))
+
+    @staticmethod
+    @bp.route('/users/<user_id>', methods=['DELETE'])
+    def delete(user_id):
+        UserService.delete(user_id)
+        return Response(status=204)

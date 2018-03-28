@@ -2,7 +2,6 @@ from app.dao.user_dao import UserDao
 
 
 class UserService:
-
     @staticmethod
     def get_all():
         return UserDao.get_all()
@@ -18,3 +17,7 @@ class UserService:
     @staticmethod
     def delete(user_id):
         return UserDao.delete(user_id)
+
+    @staticmethod
+    def update(user_id, model):
+        return UserDao.update(user_id, model)

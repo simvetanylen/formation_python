@@ -26,9 +26,9 @@ class UserDao:
     @staticmethod
     def update(user_id, model):
         Database.update("""
-        UPDATE user SET firstname = ?, lastname = ?
+        UPDATE user SET firstname = ?
         WHERE id = ?
-        """, [model['firstname'], model['lastname'], user_id])
+        """, [model['firstname'], user_id])
 
     @staticmethod
     def delete(user_id):

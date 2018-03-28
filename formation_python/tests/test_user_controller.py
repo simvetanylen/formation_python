@@ -3,13 +3,13 @@ import json
 from unittest.mock import patch
 
 from app import app
+from app.dao.user_dao import UserDao
 from app.database.database import Database
 from tests.utils import content_type
 from tests.utils.mock_connection_factory import MockConnectionFactory
 
 
 class TestUserController(unittest.TestCase):
-
     @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
     def test_create(self):
         Database.execute_schema()
@@ -52,3 +52,21 @@ class TestUserController(unittest.TestCase):
 
         response = test_app.get('/users/' + user_id)
         assert response.status_code == 404
+
+    @patch.object(Database, 'get_connection', new=MockConnectionFactory.get)
+    def test_update(self):
+        Database.execute_schema()
+        test_app = app.test_client()
+
+        user_id = UserDao.create({'firstname': 'toto'})
+        assert user_id > 0
+
+        response = test_app.put('/users/' + str(user_id), data=json.dumps({
+            "firstname": "testupdate"
+        }), content_type=content_type.JSON)
+        assert response.status_code == 200
+
+        response = test_app.get('/users/' + str(user_id))
+        assert response.status_code == 200
+        user = json.loads(response.data)
+        assert user['firstname'] == 'testupdate'

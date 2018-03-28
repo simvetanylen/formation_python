@@ -8,7 +8,6 @@ bp = Blueprint(__name__, __name__)
 
 
 class UserController:
-
     @staticmethod
     @bp.route('/users', methods=['GET'])
     def get_all():
@@ -29,3 +28,8 @@ class UserController:
     def delete(user_id):
         UserService.delete(user_id)
         return Response(status=204)
+
+    @staticmethod
+    @bp.route('/users/<user_id>', methods=['PUT'])
+    def update(user_id):
+        return Response(str(UserService.update(user_id, request.get_json())))

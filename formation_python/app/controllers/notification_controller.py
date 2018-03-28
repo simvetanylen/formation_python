@@ -7,11 +7,11 @@ from app.services.notification_service import NotificationService
 bp = Blueprint(__name__, __name__)
 
 
-class UserController:
+class NotificationController:
     @staticmethod
     @bp.route('/users/<user_id>/notifications', methods=['GET'])
-    def get_all(user_id):
-        return Response(json.dumps(NotificationService.get_all(user_id)))
+    def get_for_user(user_id):
+        return Response(json.dumps(NotificationService.get_for_user(user_id)))
 
 
     @staticmethod

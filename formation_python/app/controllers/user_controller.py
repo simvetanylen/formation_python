@@ -8,7 +8,6 @@ bp = Blueprint(__name__, __name__)
 
 
 class UserController:
-
     @staticmethod
     @bp.route('/users', methods=['GET'])
     def get_all():
@@ -23,3 +22,8 @@ class UserController:
     @bp.route('/users', methods=['POST'])
     def create():
         return Response(str(UserService.create(request.get_json())))
+
+    @staticmethod
+    @bp.route('/users/<user_id>', methods=['PUT'])
+    def update(user_id):
+        return Response(str(UserService.update(user_id, request.get_json())))

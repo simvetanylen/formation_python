@@ -23,13 +23,6 @@ class UserDao:
         VALUES (?);
         """, [model['firstname']])
 
-#    @staticmethod
-#    def update(user_id, model):
-#       Database.update("""
-#        UPDATE user SET firstname = ?, lastname = ?
-#        WHERE id = ?
-#        """, [model['firstname'], model['lastname'], user_id])
-
     @staticmethod
     def update(user_id, model):
         Database.update("""

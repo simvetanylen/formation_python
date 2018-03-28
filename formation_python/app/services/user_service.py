@@ -15,5 +15,9 @@ class UserService:
         return UserDao.create(model)
 
     @staticmethod
+    def delete(user_id):
+        return UserDao.delete(user_id)
+
+    @staticmethod
     def update(user_id, model):
         return UserDao.update(user_id, model)
